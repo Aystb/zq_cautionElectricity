@@ -19,7 +19,7 @@ def createItem(request, userid):
     itemDdl = request.POST['ddl']
     thisItemUser = userid
     Item.objects.create(name=itemName, ddl=itemDdl, details=itemDetails, electricityConsume=itemEleConsume[0],
-                        itemUser_id=thisItemUser)
+                        itemUser_id=thisItemUser,complete=False)
     return HttpResponse("createItem")
 
 
