@@ -13,10 +13,10 @@ def index(request):
 
 # 创建项目
 def createItem(request, userid):
-    itemName = request.POST['项目名称'],
-    itemDetails = request.POST['具体内容'],
-    itemEleConsume = request.POST['消耗电量'],
-    itemDdl = request.POST['截止日期']
+    itemName = request.POST['itemName'],
+    itemDetails = request.POST['details'],
+    itemEleConsume = request.POST['electricityConsume'],
+    itemDdl = request.POST['ddl']
     thisItemUser = userid
     Item.objects.create(name=itemName, ddl=itemDdl, details=itemDetails, electricityConsume=itemEleConsume[0],
                         itemUser_id=thisItemUser)
