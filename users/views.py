@@ -21,6 +21,7 @@ def getItem(request):
     return HttpResponse("getItem")
 
 
+# 新建用户
 def createUser(request):
     name = request.POST['name']
     password = request.POST['password']
@@ -28,12 +29,14 @@ def createUser(request):
     return HttpResponse("createUser")
 
 
+# 根据用户id获取电量
 def getElectricity(request, userid):
     data = User.objects.filter(id=userid)
     print(data[0].electricity)
     return JsonResponse(data[0].electricity, safe=False)
 
 
+# 获取单个项目
 def getItem(request, userid):
     data = User.objects.filter(id=userid)
     itemDatas = data[0].item_set.all()
@@ -51,6 +54,7 @@ def getItem(request, userid):
     return JsonResponse(jsonData, safe=False)
 
 
+# 获取所有项目
 def getItems(request, userid):
     userDatas = User.objects.filter(id=userid)
     itemDatas = userDatas[0].item_set.filter(isCompleted=0)
