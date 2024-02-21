@@ -1,7 +1,7 @@
 from django.db import models
 
 
-# Create your models here.
+# 用户表
 class User(models.Model):
     name = models.CharField(max_length=32)
     password = models.IntegerField()
