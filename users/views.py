@@ -121,3 +121,75 @@ def decrypt_user_info(encrypted_data, session_key, iv):
     decrypted_data = get_decrypt_data(encrypted_data, session_key, iv)
     user_info = json.loads(decrypted_data)
     return user_info
+
+def getcompleteItems(request,userid):
+    userData = User.objects.filter(id=userid)
+    completed_items = User.item_set.filter(completed=True)
+    completed_items_data = []
+    for item in completed_items:
+        item_data = {
+            "itemName": item.name,
+            "ddl": item.ddl,
+            "electricityConsume": item.electricityConsume,
+            "details": item.details,
+        }
+    completed_items_data.append(item_data)
+    return JsonResponse(completed_items_data, safe=False)
+
+def getsummary(request,userid):
+    userData = User.objects.filter(id=userid)
+    summary = {
+        'name': User.name,
+        'shut_down_count': User.shutDownCount,
+        'completed_items': User.completedItems
+    }
+    return JsonResponse(summary)
+
+def changeitem(request,userid,itemname):
+    userDatas = User.objects.filter(id=userid)
+    item = User.item_set.filter(name=itemname)
+    new_item_name = request.POST.get('itemName')
+    new_ddl = request.POST.get('ddl')
+    new_electricity = request.POST.get('electricity')
+    new_details = request.POST.get('details')
+    item.name = new_item_name
+    item.ddl = new_ddl
+    item.electricity = new_electricity
+    item.details = new_details
+    item.save()
+    return HttpResponse("Item information updated successfully")
+def deleteitem(request,userid,itemname):
+    userDatas = User.objects.filter(id=userid)
+    item = User.item_set.filter(name=itemname)
+    item.delete()
+    return HttpResponse("Item deleted successfully")
+
+def getUserDataplus(request,userid):
+    userDatas = User.objects.filter(id=userid)
+    name = User.name
+    password = User.password
+    electricity = User.electricity
+    completed_items = User.completed_items
+    shutdown_count = User.shutdown_count
+    return JsonResponse({
+        'name': name,
+        'password': password,
+        'electricity': electricity,
+        'completed_items': completed_items,
+        'shutdown_count': shutdown_count,
+    })
+
+def changeUserData(request,userid):
+    userDatas = User.objects.filter(id=userid)
+    new_name = request.POST.get('Name')
+    new_password = request.POST.get('password')
+    new_electricity = request.POST.get('electricity')
+    new_completed_items = request.POST.get('completedItems')
+    new_shutdown_count = request.POST.get('shutDownCount')
+    User.name = new_name
+    User.password = new_password
+    User.electricity = new_electricity
+    User.completed_items = new_completed_items
+    User.shutdown_count = new_shutdown_count
+    User.save()
+    return HttpResponse("User information updated successfully")

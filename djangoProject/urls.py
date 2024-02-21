@@ -30,9 +30,13 @@ urlpatterns = [
     # 获取电量
     re_path('m1/4020303-0-default//cautionelectricity/(\d+)/quantity', users.getElectricity),
     # 获取所有已完成项目
+    re_path('m1/4020303-0-default/cautionelectricity/(\d+)/allcomplishItems', users.getcompleteItems),
     # 获取总结
+    path('m1/4020303-0-default/cautionelectricity/getsummary', users.getsummary),
     # 修改指定项目
+    path('m1/4020303-0-default/cautionelectricity/changeitem', users.changeitem),
     # 删除指定项目
+    path('m1/4020303-0-default/cautionelectricity/deleteitem', users.deleteitem),
     # 新建项目
     re_path(r'm1/4020303-0-default/cautionelectricity/(\d+)/items/create', items.createItem),
     # 新建用户
@@ -42,8 +46,10 @@ urlpatterns = [
     # 获取token
     re_path(r'm1/4020303-0-default/cautionelectricity/(\d+)/getToken', users.getToken),
     # 获取用户详细信息(解密版，可忽略)
-    path('m1/4020303-0-default/cautionelectricity/getUserData', users.baseGetUserData)
+    path('m1/4020303-0-default/cautionelectricity/getUserData', users.baseGetUserData),
     # 获取用户详细信息
+    path('m1/4020303-0-default/cautionelectricity/getUserDataplus', users.getUserDataplus),
     # 修改用户详细信息
+    path('m1/4020303-0-default/cautionelectricity/changeUserData', users.changeUserData),
 
 ]
