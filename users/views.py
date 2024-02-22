@@ -4,9 +4,11 @@ from Cryptodome.Cipher import AES
 import requests
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.urls import resolve
+
 from users.models import User
 from items.models import Item
-
+from jwt_auth import jwt_auth
 
 # Create your views here.
 def index(request):
@@ -93,13 +95,25 @@ def login(request):
         return JsonResponse(nowUser[0].id, safe=False)
 
 
+def getJwtToken(request, userid):
+    userData = User.objects.filter(id=userid)
+    openid = userData[0].openid
+    newJwtToken = jwt_auth.create_jwtToken(openid)
+    # 获取到jwtToken后立马验证试试
+    print(newJwtToken)
+    Message = jwt_auth.identify_token(newJwtToken)
+    # payload中的信息
+    print(Message)
+    userData.update(token=newJwtToken)
+    return JsonResponse(newJwtToken, safe=False)
+
+
 def getToken(request, userid):
     userData = User.objects.filter(id=userid)
     url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxba92e34da68b5aeb&secret=dd74ff753006510da7ce0f5321d36dae"
     newToken = get_get_data(url)
-    print(newToken)
-    userData.update(token=newToken)
     return JsonResponse(newToken, safe=False)
+
 
 
 def baseGetUserData(request, session_key):

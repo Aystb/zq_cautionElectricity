@@ -15,6 +15,8 @@ import rest_framework
 import django_filters
 import drf_yasg
 
+import djangoProject.middleware.check_function_middleware
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'djangoProject.middleware.check_function_middleware.CheckFunctionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -84,8 +87,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cautionelectricity',
         'USER': 'root',
-        'PASSWORD': 'LDroot2406',
-        'HOST': '43.134.58.105',
+        'PASSWORD': 'agr747804',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }

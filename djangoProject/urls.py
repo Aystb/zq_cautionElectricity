@@ -72,6 +72,8 @@ urlpatterns = [
 
     # 登陆
     path('m1/4020303-0-default/cautionelectricity/login', users.login),
+    # 获取JwtToken
+    re_path(r'm1/4020303-0-default/cautionelectricity/(\d+)/getJwtToken', users.getJwtToken),
     # 获取token
     re_path(r'm1/4020303-0-default/cautionelectricity/(\d+)/getToken', users.getToken),
     # 获取用户详细信息(解密版，可忽略)
@@ -80,7 +82,6 @@ urlpatterns = [
     path('m1/4020303-0-default/cautionelectricity/getUserDataplus', users.getUserDataplus),
     # 修改用户详细信息
     path('m1/4020303-0-default/cautionelectricity/changeUserData', users.changeUserData),
-
     # swagger文档路由
     path("api/docs/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
 
