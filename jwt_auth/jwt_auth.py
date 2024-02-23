@@ -1,8 +1,9 @@
 import jwt
 import datetime
 
-import djangoProject.settings
+from django.http import HttpResponse
 
+import djangoProject.settings
 
 def create_jwtToken(openid):
     expire_time = datetime.datetime.utcnow() + datetime.timedelta(days=7)
@@ -25,7 +26,10 @@ def identify_token(token):
         return verified_payload
     except jwt.ExpiredSignatureError:
         print('token已失效')
+        return False
     except jwt.DecodeError:
         print('token认证失败')
+        return False
     except jwt.InvalidTokenError:
         print('非法的token')
+        return False
