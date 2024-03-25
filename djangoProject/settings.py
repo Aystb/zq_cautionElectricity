@@ -17,7 +17,6 @@ import drf_yasg
 
 import djangoProject.middleware.check_function_middleware
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,7 +29,7 @@ SECRET_KEY = 'django-insecure-ckfrqxe3f0e%zet6jczj=d27lwehiv4%=-k)gwwucnvbk2f@d+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -84,16 +83,34 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cautionelectricity',
-        'USER': 'root',
-        'PASSWORD': 'agr747804',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": str(BASE_DIR / "db.sqlite3"),
     }
 }
 
+# DATABASES = {
+# 'default': {
+#   'ENGINE': 'django.db.backends.mysql',
+#  'NAME': 'cautionelectricity',
+# 'USER': 'root',
+# 'PASSWORD': 'agr747804',
+# 'HOST': '127.0.0.1',
+# 'PORT': '3306',
+# }
+# }
+
+
+# DATABASES = {
+#  'default': {
+#     'ENGINE': 'django.db.backends.mysql',
+#    'NAME': 'monitor',
+#   'USER': 'zq_monitor',
+#  'PASSWORD': 'H5yF$7Mmn@n2JN^fmSuKcF',
+# 'HOST': 'mysql',
+# 'PORT': '3306',
+# }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 

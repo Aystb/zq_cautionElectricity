@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
 
@@ -8,18 +10,21 @@ from items.serializers import ItemSerializer
 
 
 # Create your views here.
-def index(request):
+def itemIndex(request):
     return HttpResponse("items!")
+
 
 # 创建项目
 def createItem(request, userid):
-    itemName = request.POST['itemName'],
-    itemDetails = request.POST['details'],
-    itemEleConsume = request.POST['electricityConsume'],
-    itemDdl = request.POST['ddl']
+    postBody = request.body
+    json_result = json.loads(postBody)
+    itemName = json_result['itemName'],
+    itemDetails = json_result['details'],
+    itemEleConsume = json_result['electricityConsume'],
+    itemDdl = json_result['ddl']
     thisItemUser = userid
-    Item.objects.create(name=itemName, ddl=itemDdl, details=itemDetails, electricityConsume=itemEleConsume[0],
-                        itemUser_id=thisItemUser,complete=False)
+    Item.objects.create(name=itemName[0], ddl=itemDdl, details=itemDetails[0], electricityConsume=itemEleConsume[0],
+                        itemUser_id=thisItemUser, isCompleted=False)
     return HttpResponse("createItem")
 
 

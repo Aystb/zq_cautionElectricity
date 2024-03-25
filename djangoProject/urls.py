@@ -46,41 +46,46 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/users', users.index),
-    path('index/items', items.index),
+    path('index/users', users.userIndex),
+    path('index/items', items.itemIndex),
     # 获取单个项目
-    re_path('/cautionelectricity/(\d+)/items', users.getItem),
+    re_path('cautionelectricity/(\d+)/items/getItem', users.getItem),
     # 获取所有项目
-    re_path('/cautionelectricity/(\d+)/allItems', users.getItems),
+    re_path('cautionelectricity/(\d+)/allItems', users.getItems),
     # Router会自动生成获取所有项目、获取单个项目、修改单个项目，增加单个项目，删除单个项目的url
     re_path(r'^', include(toItemRouter.urls)),
     # 获取电量
-    re_path('/cautionelectricity/(\d+)/quantity', users.getElectricity),
+    re_path('cautionelectricity/(\d+)/quantity', users.getElectricity),
     # 获取所有已完成项目
-    re_path('/cautionelectricity/(\d+)/allcomplishItems', users.getcompleteItems),
+    re_path('cautionelectricity/(\d+)/completedItems', users.getcompleteItems),
     # 获取总结
-    path('/cautionelectricity/getsummary', users.getsummary),
+    re_path('cautionelectricity/(\d+)/summarize', users.getsummary),
     # 修改指定项目
-    path('/cautionelectricity/changeitem', users.changeitem),
+    re_path('cautionelectricity/(\d+)/items/modify', users.modifyItem),
     # 删除指定项目
-    path('/cautionelectricity/deleteitem', users.deleteitem),
+    re_path('cautionelectricity/(\d+)/items/delete', users.deleteItem),
     # 新建项目
-    re_path(r'/cautionelectricity/(\d+)/items/create', items.createItem),
+    re_path(r'cautionelectricity/(\d+)/items/create', items.createItem),
     # 新建用户
-    path('/cautionelectricity/createuser', users.createUser),
+    path('cautionelectricity/createuser', users.createUser),
     # 登陆
-    path('/cautionelectricity/login', users.login),
+    path('cautionelectricity/login', users.login),
     # 获取JwtToken
-    re_path(r'/cautionelectricity/(\d+)/getJwtToken', users.getJwtToken),
+    re_path(r'cautionelectricity/(\d+)/getJwtToken', users.getJwtToken),
     # 获取token
-    re_path(r'/cautionelectricity/(\d+)/getToken', users.getToken),
+    re_path(r'cautionelectricity/(\d+)/getToken', users.getToken),
     # 获取用户详细信息(解密版，可忽略)
-    path('/cautionelectricity/getUserData', users.baseGetUserData),
+    path('cautionelectricity/baseGetUserData', users.baseGetUserData),
     # 获取用户详细信息
-    path('/cautionelectricity/getUserDataplus', users.getUserDataplus),
+    re_path(r'cautionelectricity/(\d+)/getUserData', users.getUserData),
     # 修改用户详细信息
-    path('/cautionelectricity/changeUserData', users.changeUserData),
+    re_path(r'cautionelectricity/(\d+)/modifyUserData', users.changeUserData),
     # swagger文档路由
     path("cautionelectricity/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
-
+    # 完成项目
+    re_path(r'cautionelectricity/(\d+)/completeItem', users.completeItem),
+    # 账号密码登陆
+    path('cautionelectricity/login_nameAndPassword', users.login_nameAndPassword),
+    # 注册账号
+    path('cautionelectricity/sign_up', users.sign_up)
 ]
